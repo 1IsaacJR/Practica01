@@ -1,40 +1,34 @@
-{-
---Ejercicio1
-
---Ejercicio2
-
-
-
---Ejercicio4
-factEquivalencia:: Integer -> fact(Integer) -> Bool
-
-
 --Ejercicio5
-anterior:: Integer -> Integer
-anterior n
-	 | n-1 <= 0  = 1
+-- Tipo de dato para respuesta de entero y de cadena
+data Respuesta = Respuesta{entero :: Integer, cadena :: IO()}
+
+--Funcion mediante Guardas
+anteriorGuardas:: Integer -> Integer
+anteriorGuardas n 
+	 | (n - 1) < 0 = 0
 	 | otherwise = n-1
 	 
---Ejercicio6
+--Funcion mediante Patrones
+anteriorPatrones:: Integer -> Integer
+anteriorPatrones 0 = 0
+anteriorPatrones n = n - 1
 
-primo:: Integer -> Bool 
-primo n = if n%2 == 0 then false
-      	  else True
+--Comparar si es menor que 0
+menorQueCero:: Integer -> Bool
+menorQueCero n = if n < 0 then True else False
+
+--Comparacion de funciones
+anterior :: Integer  -> Bool
+anterior n
+  | anteriorPatrones n == anteriorGuardas n = True
+  | otherwise = False
 
 
-primo:: Integer -> Bool
-primo n
-      | n%2 == 0   = false
-      | n%2 != 0   = True
-
-
-
---Ejercicio7
-f:: Integer -> Bool
-
-esFormula, reccorrido:: String -> Bool -> list[] ->
-recorrido n k = if n = 1 then True
-	      else recoorido(n)
-esFormula n = if n == E then True
-	      else false
--}	
+--Main de ejecucion
+main :: IO()
+main = do
+     let n = 0
+     print (anteriorGuardas n)
+     print (anteriorPatrones n)
+     print (anterior n)
+     
