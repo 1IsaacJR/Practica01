@@ -1,0 +1,46 @@
+1. En el cálculo lambda, decimos que una expresión tiene forma normal si se le ha aplicado la reducción beta de tal manera que no quedan λ’s por reducir en la expresión. Determina cuáles de las siguientes expresiones se pueden reducir a forma normal y cuáles no (es decir, divergen):
+
+a) λx.xxx
+
+La siguiente expresion ya no posee una reduccion a una forma normal puesto que existe todavia lambdas en en la expresion a menos que se le aplique un argumento, por lo tanto diverge
+
+b) (λz.zz)λy.yy -> (λy.yy)(λy.yy)
+
+La siguiente expresion no puede reducirse a una forma normal, ya que a travez de una reduccion beta, llega a una forma infinita parecida a (λx.xx)(λx.xx)
+   
+c) (λx.xxx)z
+   
+En la siguiente expresion existe un reduccion beta, la cual permite reducir las lambdas de la expresion, de tal manera: (λ(z).(z)(z)(z)) -> zzz. Por lo tanto la expresion se reduce a una forma normal. 
+
+2. Reduce cada una de las siguientes expresiones a su forma normal:
+
+a) (λabc.cba)zz(λwv.w)
+
+   (λabc.cba)zz(λw.λv.w)
+   (λ(z).λb.λc.cb(z))z(λw.λv.w)
+   (λb.λc.cbz)z(λw.λv.w)
+   (λ(z).λc.c(z)z)(λw.λv.w)
+   (λ((λw.λv.w)).((λw.λv.w))zz)
+   (λw.λv.w)zz
+   (λ(z).λv.(z))z
+   (λv.z)z
+   z
+      
+b) (λx.λy.xyy)(λa.a)b
+
+   (λx.λy.xyy)(λa.a)b
+   (λ(λa.a).λy.(λa.a)yy)b
+   (λy.(λa.a)yy)b   
+   (λa.a)(b)(b)   
+   (λ(b).(b))b
+   bb
+   
+c) (λy.y)(λx.xx)(λz.zq)
+
+   (λy.y)(λx.xx)(λz.zq)
+   (λy.y)(λz.zq)(λz.zq)
+   (λy.y)((λz.zq)q)
+   (λy.y)qq
+   (λ(q).(q))q
+   qq
+
