@@ -1,54 +1,44 @@
 --Ejercicio7
-{-
-
-E ::=()
-E ::=(E)
-E ::=EE
-
-Definir una función esFormula tal que la evaluación esFormula e dé
-como resultado True si e es una cadena correspondiente a una expresión
-que pertenece a la gramática de los paréntesis balanceados.
-	  	   
---Contador 1
+--Contador 1 para saber si existen parentesis abiertos '(' sumamos el contador
 contador1:: Integer -> Integer
 contador1 n = n+1
 
---Contador 2
+--Contador 2 para saber si existen parentesis cerrados ')' restamos el contador
 contador2:: Integer -> Integer
 contador2 n = n-1
 
---Acceder al primero o al ultimo caracter de un string
-accederUltimo, accederPrimero:: String -> Char
-accederPrimero s = head s
-accederUltimo s = last s
+--Función que verifica si existe la misma cantidad de parentesis abiertos  que cerrados
+buscarParentesis :: String -> Integer -> Bool
+buscarParentesis [] 0 = True
+--Utilizamos un patron comodin para no especificar el valor en este caso del contador sea negativo o positivo
+buscarParentesis [] _ = False
+--Utilizamos listas para verificar los parentesis
+buscarParentesis ('(':xs) n = buscarParentesis xs (contador1 n)
+buscarParentesis (')':xs) n
+    | n > 0 = buscarParentesis xs (contador2 n)
+    | otherwise = False
 
---Ayudantia hint ??
-if n == "()" then True
-else esFormula(f)
-where f = eliminarParentesis n 
 
-esFormula n = if n == f ++ g  && n == esformula(f) && esformula(g) then True else False
+-- Función que verifica si la cadena de paréntesis es válida
+esFormula :: String -> Bool
+esFormula t
+--Vemos que cumpla el caso base para cuando E::= ()
+    | t == "()" = True 
+    | t == "" = False
+--Vemos el caso cuando la cadea dentro de la gramatica se encuentra repetida E::= EE
+--Vemos el caso cuando la cadena se encuenta entre parentesis E::=(E)
+    | otherwise = buscarParentesis t 0  
 
-buscarCadena:: String -> Integer -> Bool
-buscarCadena [] 0 = True
-buscarCadena ('(':xs) n =  buscarCadena xs (n+1)
-buscarCadena (')':xs) n =  buscarCadena xs (n-1)
-
--}
-
---Intentando entender que es lo que esta pasando
-
-eliminarParentesis :: String -> String
-eliminarParentesis ('(':xs) = init xs  -- Elimina el primer y el último carácter de la lista (paréntesis)
-eliminarParentesis xs = xs  -- Si no hay paréntesis, la cadena se devuelve tal cual
-
-esFormula:: String  -> Bool
-esFormula t 
-	  | t == "()" = True
-	  | t == "" = False
-	  |otherwise =  t == eliminarParentesis t
-
-main:: IO()
+-- Funcion Main de ejecucion
+main :: IO ()
 main = do
-     let m = "EE"
-     print (esFormula m)
+    --let m = ""
+    let p = "()"
+    let o = "(hola)"
+    let y = "holahola"
+    --print (esFormula m)
+    print (esFormula p)
+    print (esFormula o)
+    print (esFormula y)
+
+
